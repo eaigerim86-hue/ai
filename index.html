@@ -15,21 +15,21 @@
        CSS CUSTOM PROPERTIES (DESIGN TOKENS)
     ============================================================ */
     :root {
-      --bg-deep:      #071a45;
-      --bg-card:      rgba(15, 22, 45, 0.72);
-      --bg-glass:     rgba(255, 255, 255, 0.04);
-      --border-glass: rgba(255, 255, 255, 0.10);
-      --primary:      #2f8cff;
-      --primary-glow: rgba(47, 140, 255, 0.42);
-      --accent:       #a259ff;
-      --accent-glow:  rgba(162, 89, 255, 0.35);
-      --neon:         #00e5ff;
-      --text-hi:      #f0f4ff;
-      --text-mid:     #8b9ec7;
-      --text-lo:      #4a5a7a;
+      --bg-deep:      #dbefff;
+      --bg-card:      rgba(255, 255, 255, 0.94);
+      --bg-glass:     rgba(255, 255, 255, 0.72);
+      --border-glass: rgba(26, 111, 212, 0.18);
+      --primary:      #1870d5;
+      --primary-glow: rgba(24, 112, 213, 0.35);
+      --accent:       #8b5cf6;
+      --accent-glow:  rgba(139, 92, 246, 0.28);
+      --neon:         #0891b2;
+      --text-hi:      #0f172a;
+      --text-mid:     #475569;
+      --text-lo:      #64748b;
       --radius-card:  18px;
       --radius-btn:   50px;
-      --shadow-card:  0 8px 40px rgba(0,0,0,.45);
+      --shadow-card:  0 10px 40px rgba(15, 23, 42, 0.08);
       --trans-fast:   .18s ease;
       --trans-med:    .35s ease;
       --ff-display:   'Roboto Slab', serif;
@@ -45,10 +45,11 @@
 
     body {
       font-family: var(--ff-body);
-      background: var(--bg-deep);
+      background: linear-gradient(165deg, #e0f2fe 0%, #f8fafc 42%, #e8f4fc 100%);
       color: var(--text-hi);
       overflow-x: hidden;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     a { text-decoration: none; color: inherit; }
@@ -58,7 +59,7 @@
        SCROLLBAR
     ============================================================ */
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,.5); }
     ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
     /* ============================================================
@@ -94,11 +95,12 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 26, 69, 0.82);
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border-glass);
       padding: 14px 0;
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
     }
 
     .header-inner {
@@ -203,8 +205,8 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(47,140,255,.16);
-      border: 1px solid rgba(47,140,255,.38);
+      background: rgba(24, 112, 213, 0.12);
+      border: 1px solid rgba(24, 112, 213, 0.35);
       border-radius: 50px;
       padding: 6px 18px;
       font-size: 15px;
@@ -323,7 +325,7 @@
 
     .section-sub {
       color: var(--text-mid);
-      font-size: 20px;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
       margin-bottom: 48px;
     }
 
@@ -416,7 +418,7 @@
 
     .flip-back {
       transform: rotateY(180deg);
-      background: linear-gradient(145deg, rgba(47,140,255,.18), rgba(162,89,255,.15));
+      background: linear-gradient(145deg, rgba(24, 112, 213, 0.12), rgba(139, 92, 246, 0.1));
       align-items: center;
       justify-content: center;
       gap: 18px;
@@ -623,7 +625,7 @@
     .prompt-text {
       font-size: .84rem;
       color: var(--text-mid);
-      background: rgba(255,255,255,.03);
+      background: rgba(24, 112, 213, 0.05);
       border: 1px solid var(--border-glass);
       border-radius: 10px;
       padding: 14px;
@@ -707,6 +709,85 @@
     }
 
     /* ============================================================
+       STATS SECTION (multilingual counters)
+    ============================================================ */
+    .stats-section {
+      padding: 72px 0 88px;
+    }
+
+    .stats-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-card);
+      padding: 22px 20px 20px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 44px rgba(24, 112, 213, 0.14);
+    }
+
+    .stat-value-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stat-num {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 2.55rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    .stat-suffix {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-stars {
+      font-size: 1.35rem;
+      letter-spacing: 2px;
+      color: #f59e0b;
+      text-shadow: 0 1px 2px rgba(245, 158, 11, 0.35);
+    }
+
+    .stat-label {
+      font-size: .88rem;
+      line-height: 1.45;
+      color: var(--text-mid);
+      border-top: 1px solid var(--border-glass);
+      padding-top: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* ============================================================
        SAFETY SECTION
     ============================================================ */
     .safety-section {
@@ -745,7 +826,7 @@
       transition: opacity var(--trans-med);
     }
 
-    .safety-card:hover { transform: translateY(-6px); box-shadow: 0 16px 60px rgba(0,0,0,.55); }
+    .safety-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(15, 23, 42, 0.12); }
     .safety-card:hover::before { opacity: 1; }
 
     .safety-icon {
@@ -802,8 +883,9 @@
 
     footer .footer-links {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 22px;
+      gap: 14px 22px;
       margin-top: 14px;
       font-size: .82rem;
       color: var(--text-mid);
@@ -877,6 +959,13 @@
       .hero h2 { letter-spacing: -1px; }
       .cards-grid { grid-template-columns: 1fr; }
       .safety-grid  { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stats-section { padding: 52px 0 64px; }
+      .filter-bar { gap: 8px; margin-bottom: 36px; }
+      .filter-btn { padding: 8px 16px; font-size: .82rem; }
+      .tools-section { padding: 56px 0 72px; }
+      .prompts-section { padding: 56px 0; }
+      .prompt-slide { padding: 22px 18px; min-width: 0; }
     }
   </style>
 </head>
@@ -1008,6 +1097,45 @@
 </section>
 
 <!-- ================================================================
+     STATS (before safety)
+================================================================ -->
+<section class="stats-section" id="stats">
+  <div class="container">
+    <div class="stats-header reveal">
+      <h2 class="section-title" data-i18n="stats_title">Статистика</h2>
+      <p class="section-sub" data-i18n="stats_sub">Негізгі көрсеткіштер</p>
+    </div>
+    <div class="stats-grid">
+      <article class="stat-card reveal" data-stat="users">
+        <div class="stat-value-row">
+          <span class="stat-num" data-target="1200">0</span><span class="stat-suffix">+</span>
+        </div>
+        <p class="stat-label" data-i18n="stat_users">Қолданушылар</p>
+      </article>
+      <article class="stat-card reveal" data-stat="activity">
+        <div class="stat-value-row">
+          <span class="stat-num" data-target="100">0</span><span class="stat-suffix">%</span>
+        </div>
+        <p class="stat-label" data-i18n="stat_activity">Белсенділік деңгейі</p>
+      </article>
+      <article class="stat-card reveal" data-stat="rating">
+        <div class="stat-value-row">
+          <span class="stat-num">5</span><span class="stat-suffix">/5</span>
+          <span class="stat-stars" data-i18n-aria="stat_stars_aria">★★★★★</span>
+        </div>
+        <p class="stat-label" data-i18n="stat_rating">Рейтинг</p>
+      </article>
+      <article class="stat-card reveal" data-stat="projects">
+        <div class="stat-value-row">
+          <span class="stat-num" data-target="20">0</span><span class="stat-suffix">+</span>
+        </div>
+        <p class="stat-label" data-i18n="stat_projects">Жобалар</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
      SAFETY SECTION
 ================================================================ -->
 <section class="safety-section" id="safety">
@@ -1032,6 +1160,7 @@
       <a href="#hero"   data-i18n="footer_home">Басты бет</a>
       <a href="#tools"  data-i18n="footer_tools">Құралдар</a>
       <a href="#prompts"data-i18n="footer_prompts">Промпттар</a>
+      <a href="#stats"   data-i18n="footer_stats">Статистика</a>
       <a href="#safety" data-i18n="footer_safety">Қауіпсіздік</a>
     </div>
   </div>
@@ -1079,7 +1208,15 @@ const translations = {
     footer_home:     "Басты бет",
     footer_tools:    "Құралдар",
     footer_prompts:  "Промпттар",
+    footer_stats:    "Статистика",
     footer_safety:   "Қауіпсіздік",
+    stats_title:     "Статистика",
+    stats_sub:       "Негізгі көрсеткіштер",
+    stat_users:      "Қолданушылар",
+    stat_activity:   "Белсенділік деңгейі",
+    stat_rating:     "Рейтинг",
+    stat_projects:   "Жобалар",
+    stat_stars_aria: "Бес жұлдыздық рейтинг, ең жоғары деңгей",
     // Safety card titles and descriptions (also edit safetyCards below)
   },
   ru: {
@@ -1112,7 +1249,15 @@ const translations = {
     footer_home:     "Главная",
     footer_tools:    "Инструменты",
     footer_prompts:  "Промпты",
+    footer_stats:    "Статистика",
     footer_safety:   "Безопасность",
+    stats_title:     "Статистика",
+    stats_sub:       "Ключевые показатели",
+    stat_users:      "Пользователи",
+    stat_activity:   "Уровень активности",
+    stat_rating:     "Рейтинг",
+    stat_projects:   "Проекты",
+    stat_stars_aria: "Оценка 5 из 5 звёзд",
   },
   en: {
     header_sub:      "",
@@ -1144,7 +1289,15 @@ const translations = {
     footer_home:     "Home",
     footer_tools:    "Tools",
     footer_prompts:  "Prompts",
+    footer_stats:    "Statistics",
     footer_safety:   "Safety",
+    stats_title:     "Statistics",
+    stats_sub:       "Key metrics",
+    stat_users:      "Users",
+    stat_activity:   "Activity level",
+    stat_rating:     "Rating",
+    stat_projects:   "Projects",
+    stat_stars_aria: "Five-star rating, highest level",
   }
 };
 
@@ -1239,7 +1392,7 @@ const aiTools = [
       en: "60+ teacher tools from differentiation to communication"
     },
     url: "https://www.magicschool.ai",
-    category: "lesson",
+    category: "assign",
     youtubeEmbed: "https://youtu.be/7DqYRxewlsw"
   },
    {
@@ -1256,7 +1409,7 @@ const aiTools = [
       en: "Using vibecoding in lessons"
     },
     url: "https://gemini.google.com ",
-    category: "lesson",
+    category: "assign",
     youtubeEmbed: "https://youtu.be/GfatykNZhIw?si=siZYSnzzpN6NfZyn"
   },
   {
@@ -1291,7 +1444,7 @@ const aiTools = [
       en: "Creates lesson plans, tests and tasks on any topic"
     },
     url: "https://gemini.google.com ",
-    category: "lesson",
+    category: "visual",
     youtubeEmbed: "https://youtu.be/gQuAS-x7D44"
   },
   {
@@ -1308,7 +1461,7 @@ const aiTools = [
       en: "AI-a tool for creating 3D and video content"
     },
     url: "https://lumalabs.ai",
-    category: "lesson",
+    category: "visual",
     youtubeEmbed: "https://youtu.be/FCNUraQz9nU "
   },
   {
@@ -1392,14 +1545,6 @@ const promptsData = [
       ru: "Напиши письмо родителям о том, что в школе используют ИИ в учебных целях. Дружелюбный и профессиональный тон. 3 абзаца.",
       en: "Write a parent letter explaining that the school uses AI for educational purposes. Friendly and professional tone. 3 paragraphs."
     }
-  },
-  {
-    title: { kz: "TEST", ru: "Письмо родителям", en: "Parent Letter" },
-    text: {
-      kz: "Ата-аналарға мектепте ЖИ-ді оқу мақсатында қолданатынымыз туралы хат жаз. Достық, кәсіби тонда болсын. 3 абзацтан тұрсын.",
-      ru: "Напиши письмо родителям о том, что в школе используют ИИ в учебных целях. Дружелюбный и профессиональный тон. 3 абзаца.",
-      en: "Write a parent letter explaining that the school uses AI for educational purposes. Friendly and professional tone. 3 paragraphs."
-    }
   }
 ];
 
@@ -1449,13 +1594,21 @@ function applyTranslations(lang) {
     }
   });
 
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.dataset.i18nAria;
+    if (translations[lang][key]) {
+      el.setAttribute('aria-label', translations[lang][key]);
+    }
+  });
+
   // Active lang button
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
 
-  // Re-render dynamic sections
-  renderCards('all');
+  // Re-render dynamic sections (keep active category filter)
+  const activeCat = document.querySelector('.filter-btn.active')?.dataset.category || 'all';
+  renderCards(activeCat);
   renderSlider();
   renderSafety();
 }
@@ -1837,7 +1990,7 @@ function observeReveal() {
   let W, H, particles;
   const PARTICLE_COUNT = 70;
   const MAX_DIST = 160;
-  const COLORS = ['#2f8cff', '#a259ff', '#00e5ff'];
+  const COLORS = ['#1870d5', '#8b5cf6', '#0891b2'];
 
   function resize() {
     W = canvas.width  = window.innerWidth;
@@ -1872,7 +2025,7 @@ function observeReveal() {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
-      ctx.globalAlpha = .7;
+      ctx.globalAlpha = .45;
       ctx.fill();
     });
 
@@ -1883,7 +2036,7 @@ function observeReveal() {
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < MAX_DIST) {
-          const alpha = (1 - dist / MAX_DIST) * .3;
+          const alpha = (1 - dist / MAX_DIST) * .22;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -1906,11 +2059,49 @@ function observeReveal() {
 })();
 
 /* ==============================================================
-   13. INIT
+   13. STATS COUNT-UP
+============================================================== */
+function initStatCounters() {
+  const nums = document.querySelectorAll('.stat-num[data-target]');
+  if (!nums.length) return;
+
+  const runCount = (node) => {
+    const target = Number(node.dataset.target);
+    if (!Number.isFinite(target) || node.dataset.done) return;
+    node.dataset.done = '1';
+    const dur = 1100;
+    const t0 = performance.now();
+    function frame(t) {
+      const p = Math.min(1, (t - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      node.textContent = String(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(frame);
+      else node.textContent = String(target);
+    }
+    requestAnimationFrame(frame);
+  };
+
+  const obs = new IntersectionObserver(
+    (entries, o) => {
+      entries.forEach(ent => {
+        if (!ent.isIntersecting) return;
+        runCount(ent.target);
+        o.unobserve(ent.target);
+      });
+    },
+    { threshold: 0.22 }
+  );
+
+  nums.forEach(el => obs.observe(el));
+}
+
+/* ==============================================================
+   14. INIT
 ============================================================== */
 (function init() {
   applyTranslations('kz');
   observeReveal();
+  initStatCounters();
 })();
 </script>
 </body>
